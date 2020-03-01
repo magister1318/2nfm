@@ -1,15 +1,14 @@
 <template lang="pug">
-  div
-    .frow
-      h1.my-30 Public Rooms
-    .frow.content-evenly.width-100 
-      router-link.stream-button.mx-10(
-        type="button"
-        v-for="room in listOfRooms"
-        :key="room.owner"
-        :to="room.owner"
-      )
-        | {{room.owner}}  
+div
+  h1.mb-30 Public Rooms
+    router-link.stream-button(
+      type="button"
+      v-for="room in listOfRooms"
+      :key="room.owner"
+      :to="room.owner"
+    )
+      | {{room.owner}}
+        
 </template>
 
 <script>
@@ -43,7 +42,7 @@ const STATE = {
 export default {
   name: 'PublicRooms',
   STATE, // export so Receiver.vue can compare values for `state` event/emitter
-
+  
   data() {
     return {
       params: {},
@@ -91,6 +90,7 @@ export default {
 
     this.connection.getExternalIceServers = false;
     this.connection.iceServers = IceServersHandler.getIceServers();
+      
 
     this.connection.onstream = (e) => {
       this.$emit('stream', e.stream);
@@ -133,14 +133,13 @@ export default {
           this.connection.join(this.roomName);
         },
       );
-      this.connection.publicRoomIdentifier = 'desktopCapture';
-      this.connection.socket.emit(
-        'get-public-rooms',
+      this.connection.publicRoomIdentifier = 'desktopCapture'
+      this.connection.socket.emit('get-public-rooms',
         this.connection.publicRoomIdentifier,
         (listOfRooms) => {
-          this.listOfRooms = listOfRooms;
-        },
-      );
+          console.log(listOfRooms)
+          this.listOfRooms = listOfRooms
+        });
     },
   },
 };
@@ -148,7 +147,8 @@ export default {
 function getParams() {
   let DEFAULTS;
   let tempParams;
-  (tempParams = {}), (DEFAULTS = { bandwidth: 8192 });
+  (tempParams = {}),
+  (DEFAULTS = { bandwidth: 8192 });
 
   return Object.assign({}, DEFAULTS, tempParams);
 }
