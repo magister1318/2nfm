@@ -296,6 +296,9 @@ export default {
           this.connection.closeSocket();
         } catch (e) {}
 
+        clearInterval(this.connection.looper);
+
+        this.connection = null;
       }
 
       this.setViewerCount(0);
