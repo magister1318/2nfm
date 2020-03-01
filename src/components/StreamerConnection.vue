@@ -25,11 +25,7 @@ export default {
       type: String,
       default: '',
     },
-    privacy: {
-      type: String,
-      default: 'private',
-    },
-  },  
+  },
   data() {
     return {
       connection: null,
@@ -52,11 +48,8 @@ export default {
       this.connection = new RTCMultiConnection();
       this.connection.socketURL = 'https://api.2n.fm:9001/';
       this.connection.autoCloseEntireSession = true;
+
       // this must match the viewer page
-      if (this.privacy === 'public') {
-        this.connection.publicRoomIdentifier = 'desktopCapture';
-      }
-      
       this.connection.socketMessageEvent = 'desktopCapture';
 
       this.connection.password = null;
