@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import { Codecs } from '@/utils/enums/Codecs';
 import { CodecsHandler } from '../utils/background/helpers/CodecsHandler';
 import { IceServersHandler } from '../utils/background/helpers/IceServersHandler';
 
@@ -123,7 +124,7 @@ export default {
           if (this.isVideo) {
             sdp = CodecsHandler.preferCodec(sdp, this.codecs);
           } else {
-            sdp = CodecsHandler.preferCodec(sdp, 'vp8');
+            sdp = CodecsHandler.preferCodec(sdp, Codecs.vp8);
           }
         }
         return sdp;
