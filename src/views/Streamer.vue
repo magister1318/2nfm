@@ -185,6 +185,7 @@
             label.row-start
               input(type="checkbox" v-model="enableMic")
               | Enable Microphone
+          .col-xs-1-2
             label.row-start
               | Codec
               select.ml-5(v-model="codecs")
